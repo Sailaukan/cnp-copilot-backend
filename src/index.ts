@@ -2,10 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import path from 'path';
 import gitlabRoutes from './routes/gitlab';
+import aiRoutes from './routes/ai';
 
-// Load environment variables
-dotenv.config();
+require('dotenv').config()
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/gitlab', gitlabRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -49,4 +51,5 @@ app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     console.log(`📊 Health check: http://localhost:${PORT}/health`);
     console.log(`🔗 GitLab API: http://localhost:${PORT}/api/gitlab`);
+    console.log(`🤖 AI Chat API: http://localhost:${PORT}/api/ai`);
 }); 
